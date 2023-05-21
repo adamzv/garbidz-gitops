@@ -9,19 +9,13 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: garbidz-staging
-  sources:
-    - chart: mysql
-      repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 9.10.1
-      helm:
-        version: v3
-        releaseName: mysql
-    - repoURL: https://github.com/adamzv/garbidz-gitops.git
-      targetRevision: main
-      path: garbidz
-      helm:
-        valueFiles:
-          - ../envs/staging/mysql/values.yaml
+  source:
+    repoURL: https://github.com/adamzv/garbidz-gitops.git
+    targetRevision: main
+    path: mysql
+    helm:
+      valueFiles:
+        - ../envs/staging/mysql/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: garbidz-staging

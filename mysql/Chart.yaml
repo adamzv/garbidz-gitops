@@ -1,0 +1,8 @@
+apiVersion: v2
+name: garbidz-mysql
+version: "0.0.1"
+
+dependencies:
+- name: mysql
+  version: "9.10.1"
+  repository: "https://charts.bitnami.com/bitnami"
