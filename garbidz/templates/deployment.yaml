@@ -4,6 +4,8 @@ metadata:
   name: garbidz-deployment
   labels:
     app: garbidz-deployment
+  annotations:
+    argocd.argoproj.io/sync-wave: "2" 
 spec:
   selector:
     matchLabels:
