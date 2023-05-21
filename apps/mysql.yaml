@@ -9,60 +9,13 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: garbidz-staging
-  # sources:
-  #   - repoURL: 'https://charts.bitnami.com/bitnami'
-  #     chart: mysql
-  #     targetRevision: 9.10.1
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: mysql
-    targetRevision: 9.10.1
+    repoURL: https://github.com/adamzv/garbidz-gitops.git
+    targetRevision: main
+    path: mysql
     helm:
-      # valueFiles:
-      # - $values/envs/staging/mysql/values.yaml
-      # - $values/mysql/values.yaml
-      values: |
-        mysql:
-          auth:
-            database: "garbidz"
-            password: "garbidzpw"
-            username: "garbidzuser"
-            rootPassword: "root"
-            createDatabase: true
-          # Primary database configuration
-          primary:
-            # Enable persistence using Persistent Volume Claims
-            persistence:
-              # If true, use a Persistent Volume Claim, If false, use emptyDir
-              enabled: true
-              size: 1Gi
-            # MySQL primary Pod security context
-            podSecurityContext:
-              enabled: true
-              fsGroup: 1001
-            # MySQL primary container security context
-            containerSecurityContext:
-              enabled: true
-              runAsUser: 1001
-
-          # Secondary database configuration
-          secondary:
-            # Enable persistence using Persistent Volume Claims
-            persistence:
-              # If true, use a Persistent Volume Claim, If false, use emptyDir
-              enabled: false
-            # MySQL secondary Pod security context
-            podSecurityContext:
-              enabled: true
-              fsGroup: 1001
-            # MySQL secondary container security context
-            containerSecurityContext:
-              enabled: true
-              runAsUser: 1001
-
-    # - repoURL: https://github.com/adamzv/garbidz-gitops.git
-    #   targetRevision: main
-    #   ref: values
+      valueFiles:
+        - ../envs/staging/mysql/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: garbidz-staging
