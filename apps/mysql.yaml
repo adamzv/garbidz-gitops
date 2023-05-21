@@ -16,6 +16,7 @@ spec:
       helm:
         valueFiles:
         - $values/envs/staging/mysql/values.yaml
+        - $values/mysql/values.yaml
     - repoURL: https://github.com/adamzv/garbidz-gitops.git
       targetRevision: main
       ref: values
