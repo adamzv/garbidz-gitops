@@ -30,7 +30,7 @@ spec:
           value: pr-55
   destination:
     server: https://kubernetes.default.svc
-    namespace: garbidz-{{env}}
+    namespace: garbidz-staging
   syncPolicy:
     automated:
       prune: true
