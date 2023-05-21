@@ -35,8 +35,8 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: DB_URL
-              value: jdbc:mysql://mysql.garbidz-test:3306/garbidz
+              value: {{.Values.db_url}}
             - name: DB_USERNAME
-              value: garbidzuser
+              value: {{.Values.db_username}}
             - name: DB_PASSWORD
-              value: garbidzpw
+              value: {{.Values.db_password}}
