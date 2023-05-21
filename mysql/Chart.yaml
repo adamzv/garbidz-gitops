@@ -1,6 +1,7 @@
 apiVersion: v2
 name: garbidz-mysql
 version: "0.0.1"
+type: application
 
 dependencies:
 - name: mysql
