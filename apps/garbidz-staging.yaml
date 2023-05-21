@@ -2,13 +2,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: garbidz-staging
+  name: garbidz-{{env}}
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: ghcr.io/adamzv/garbidz
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  generators:
+  - git:
+      repoURL: https://github.com/opspresso/argocd-env-demo.git
+      revision: HEAD
+      files:
+        - path: envs/staging/garbidz/env.yaml
   project: default
   source:
     repoURL: https://github.com/adamzv/garbidz-gitops.git
@@ -16,7 +22,7 @@ spec:
     path: garbidz
     helm:
       valueFiles:
-      - ../envs/staging/garbidz/values.yaml
+      - ../envs/{{env}}/garbidz/values.yaml
       parameters:
         - name: "replicaCount"
           value: "1"
@@ -24,7 +30,7 @@ spec:
           value: pr-55
   destination:
     server: https://kubernetes.default.svc
-    namespace: garbidz-staging
+    namespace: garbidz-{{env}}
   syncPolicy:
     automated:
       prune: true
