@@ -1,7 +1,4 @@
 mysql:
-  commonAnnotations:
-    - argocd.argoproj.io/sync-wave: "1" 
-
   # Primary database configuration
   primary:
     # Enable persistence using Persistent Volume Claims
