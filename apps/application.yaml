@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: garbidz
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: aputra/nginx-lesson159:~v0.4
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: ssh://git@github.com/adamzv/garbidz-gitops.git
+    targetRevision: main
+    path: envs/staging/garbidz
+    helm:
+      parameters:
+        - name: "replicaCount"
+          value: "1"
+        - name: "image.tag"
+          value: pr-55
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: garbidz-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
