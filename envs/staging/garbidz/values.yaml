@@ -9,3 +9,7 @@ resources:
   requests:
     cpu: 500m
     memory: 500Mi
+
+db_url: jdbc:mysql://mysql.garbidz-staging:3306/garbidz
+db_user: garbidzuser
+db_password: garbidzpw
