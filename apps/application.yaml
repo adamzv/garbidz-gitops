@@ -13,8 +13,10 @@ spec:
   source:
     repoURL: ssh://git@github.com/adamzv/garbidz-gitops.git
     targetRevision: main
-    path: envs/staging/garbidz
+    path: garbidz
     helm:
+      valueFiles:
+      - envs/staging/garbidz/values.yaml
       parameters:
         - name: "replicaCount"
           value: "1"
