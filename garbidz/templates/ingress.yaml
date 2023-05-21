@@ -2,7 +2,7 @@ kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
   name: garbidz
-  namespace: garbidz-test
+  namespace: {{ .Values.ingress.namespace }}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     kubernetes.io/ingress.class: nginx

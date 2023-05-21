@@ -2,21 +2,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: garbidz
+  name: garbidz-staging
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: aputra/nginx-lesson159:~v0.4
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/adamzv/garbidz
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: ssh://git@github.com/adamzv/garbidz-gitops.git
+    repoURL: https://github.com/adamzv/garbidz-gitops.git
     targetRevision: main
     path: garbidz
     helm:
       valueFiles:
-      - envs/staging/garbidz/values.yaml
+      - ../envs/staging/garbidz/values.yaml
       parameters:
         - name: "replicaCount"
           value: "1"
