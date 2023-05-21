@@ -37,6 +37,6 @@ spec:
             - name: DB_URL
               value: {{.Values.db_url}}
             - name: DB_USERNAME
-              value: {{.Values.db_username}}
+              value: {{.Values.db_user}}
             - name: DB_PASSWORD
               value: {{.Values.db_password}}
