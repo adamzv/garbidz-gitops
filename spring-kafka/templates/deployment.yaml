@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-kafka-deployment
+  labels:
+    app: spring-kafka-deployment
+  annotations:
+    argocd.argoproj.io/sync-wave: "2" 
+spec:
+  selector:
+    matchLabels:
+      app: spring-kafka-deployment
+  template:
+    metadata:
+      labels:
+        app: spring-kafka-deployment
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources: 
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: DB_URL
+              value: {{.Values.db_url}}
+            - name: DB_USERNAME
+              value: {{.Values.db_user}}
+            - name: DB_PASSWORD
+              value: {{.Values.db_password}}

@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spring-kafka-staging
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/adamzv/spring-kafka
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  # generators:
+  # - git:
+  #     repoURL: https://github.com/opspresso/argocd-env-demo.git
+  #     revision: HEAD
+  #     files:
+  #       - path: envs/staging/garbidz/env.yaml
+  project: spring-kafka-staging
+  source:
+    repoURL: https://github.com/adamzv/garbidz-gitops.git
+    targetRevision: main
+    path: spring-kafka
+    helm:
+      valueFiles:
+      - ../envs/staging/spring-kafka/values.yaml
+      parameters:
+        - name: "replicaCount"
+          value: "1"
+        - name: "image.tag"
+          value: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafka
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
