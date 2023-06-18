@@ -15,7 +15,7 @@ spec:
   #     revision: HEAD
   #     files:
   #       - path: envs/staging/garbidz/env.yaml
-  project: spring-kafka-staging
+  project: garbidz-staging
   source:
     repoURL: https://github.com/adamzv/garbidz-gitops.git
     targetRevision: main
