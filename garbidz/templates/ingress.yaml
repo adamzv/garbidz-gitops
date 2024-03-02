@@ -4,14 +4,14 @@ metadata:
   name: garbidz
   namespace: {{ .Values.ingress.namespace }}
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-production
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
     - hosts:
         - garbidz.adamzverka.com
-      secretName: garbidz-staging-cert
+      secretName: garbidz-prod-cert
   rules:
     - host: garbidz.adamzverka.com
       http:
