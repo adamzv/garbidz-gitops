@@ -40,9 +40,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: db_user
-                  name: garbidz_secret
+                  name: garbidz-secret
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: db_password
-                  name: garbidz_secret
+                  name: garbidz-secret

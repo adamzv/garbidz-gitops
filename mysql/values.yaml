@@ -1,6 +1,6 @@
 mysql:
   auth:
-    existingSecret: "mysql_secret"
+    existingSecret: "mysql-secret"
   # Primary database configuration
   primary:
     # Enable persistence using Persistent Volume Claims
