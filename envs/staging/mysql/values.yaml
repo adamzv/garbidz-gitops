@@ -2,7 +2,5 @@
 mysql:
   auth:
     database: "garbidz"
-    password: "garbidzpw"
     username: "garbidzuser"
-    rootPassword: "root"
     createDatabase: true

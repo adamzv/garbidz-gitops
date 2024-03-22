@@ -1,11 +1,13 @@
 mysql:
+  auth:
+    existingSecret: "mysql_secret"
   # Primary database configuration
   primary:
     # Enable persistence using Persistent Volume Claims
     persistence:
       # If true, use a Persistent Volume Claim, If false, use emptyDir
       enabled: true
-      size: 1Gi
+      size: 10Gi
     # MySQL primary Pod security context
     podSecurityContext:
       enabled: true

@@ -37,6 +37,12 @@ spec:
             - name: DB_URL
               value: {{.Values.db_url}}
             - name: DB_USERNAME
-              value: {{.Values.db_user}}
+              valueFrom:
+                secretKeyRef:
+                  key: db_user
+                  name: garbidz_secret
             - name: DB_PASSWORD
-              value: {{.Values.db_password}}
+              valueFrom:
+                secretKeyRef:
+                  key: db_password
+                  name: garbidz_secret

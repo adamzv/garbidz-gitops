@@ -1,4 +1,3 @@
-
 ingress:
   namespace: garbidz-staging
 
@@ -11,5 +10,3 @@ resources:
     memory: 500Mi
 
 db_url: jdbc:mysql://garbidz-mysql.garbidz-staging:3306/garbidz
-db_user: garbidzuser
-db_password: garbidzpw
