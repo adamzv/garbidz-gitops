@@ -19,18 +19,19 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: [ "java -javaagent:opentelemetry-javaagent.jar -jar app.jar"]
+          command: [ "java" ]
+          args: ["-javaagent:opentelemetry-javaagent.jar", "-jar", "app.jar"]
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: actuator/health/liveness
+              path: api/actuator/health/liveness
               port: http
           readinessProbe:
             httpGet:
-              path: actuator/health/readiness
+              path: api/actuator/health/readiness
               port: http
           resources: 
             {{- toYaml .Values.resources | nindent 12 }}
