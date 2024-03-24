@@ -4,17 +4,7 @@ kind: Application
 metadata:
   name: garbidz-staging
   namespace: argocd
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: ghcr.io/adamzv/garbidz
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
-  # generators:
-  # - git:
-  #     repoURL: https://github.com/opspresso/argocd-env-demo.git
-  #     revision: HEAD
-  #     files:
-  #       - path: envs/staging/garbidz/env.yaml
   project: garbidz-staging
   source:
     repoURL: https://github.com/adamzv/garbidz-gitops.git
@@ -27,7 +17,7 @@ spec:
         - name: "replicaCount"
           value: "1"
         - name: "image.tag"
-          value: pr-55
+          value: main
   destination:
     server: https://kubernetes.default.svc
     namespace: garbidz-staging

@@ -1,6 +1,10 @@
 ingress:
   namespace: garbidz-staging
 
+image:
+  tag: main
+
+
 resources:
   limits:
     cpu: 1000m
