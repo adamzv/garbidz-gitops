@@ -19,21 +19,32 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "java -javaagent:opentelemetry-javaagent.jar -jar app.jar"]
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
+          livenessProbe:
+            httpGet:
+              path: actuator/health/liveness
+              port: http
+          readinessProbe:
+            httpGet:
+              path: actuator/health/readiness
+              port: http
           resources: 
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: OTEL_EXPORTER_LOGS
+              value: otlp
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://opentelemetry-collector.monitoring:4317
+            - name: OTEL_EXPORTER_OTLP_INSECURE
+              value: "true"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name=garbidz"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: grpc
             - name: DB_URL
               value: {{.Values.db_url}}
             - name: DB_USERNAME
