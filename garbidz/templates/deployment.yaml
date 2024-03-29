@@ -41,8 +41,8 @@ spec:
           resources: 
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: OTEL_EXPORTER_LOGS
-              value: otlp
+            # https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/#otel_exporter_otlp_traces_endpoint
+            # https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#otlp-exporter-span-metric-and-log-exporters
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://opentelemetry-collector.monitoring:4317
             - name: OTEL_EXPORTER_OTLP_INSECURE
