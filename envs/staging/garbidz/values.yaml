@@ -2,7 +2,7 @@ ingress:
   namespace: garbidz-staging
 
 image:
-  tag: main
+  tag: pr-56
 
 
 resources:
