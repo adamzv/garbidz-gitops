@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   registry: ghcr.io
-  repository: adamzv/garbidz
+  repository: adamzv/garbidz_old
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "pr-56"
